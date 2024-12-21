@@ -25,6 +25,10 @@ const LONG_TOKEN_SECRET                = process.env.LONG_TOKEN_SECRET || null;
 const SHORT_TOKEN_SECRET               = process.env.SHORT_TOKEN_SECRET || null;
 const NACL_SECRET                      = process.env.NACL_SECRET || null;
 
+const SUPER_ADMIN_USERNAME             = process.env.SUPER_ADMIN_USERNAME || "superadmin";
+const SUPER_ADMIN_EMAIL                = process.env.SUPER_ADMIN_EMAIL || "superadmin@host.com";
+const SUPER_ADMIN_PASSWORD             = process.env.SUPER_ADMIN_PASSWORD || "superadmin";
+
 if(!LONG_TOKEN_SECRET || !SHORT_TOKEN_SECRET || !NACL_SECRET) {
     throw Error('missing .env variables check index.config');
 }
@@ -45,6 +49,9 @@ config.dotEnv = {
     ADMIN_URL,
     LONG_TOKEN_SECRET,
     SHORT_TOKEN_SECRET,
+    SUPER_ADMIN_USERNAME,
+    SUPER_ADMIN_EMAIL,
+    SUPER_ADMIN_PASSWORD
 };
 
 

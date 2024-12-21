@@ -38,7 +38,14 @@ const cortex     = new Cortex({
 });
 const aeon = new Aeon({ cortex , timestampFrom: Date.now(), segmantDuration: 500 });
 
+const Mongo = require("./connect/mongo");
+config.dotEnv.MONGO_URI
+  ? Mongo({
+      uri: config.dotEnv.MONGO_URI,
+    })
+  : null;
+
 const managersLoader = new ManagersLoader({config, cache, cortex, oyster, aeon});
 const managers = managersLoader.load();
 
-managers.userServer.run();
+module.exports = managers.userServer.run();

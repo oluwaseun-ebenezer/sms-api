@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const slugify = (text)=>{
   const from = "ãàáäâẽèéëêìíïîõòóöôùúüûñç·/_,:;"
   const to = "aaaaaeeeeeiiiiooooouuuunc------"
@@ -134,6 +136,42 @@ const isChance = (max)=>{
     return min == value; 
 }
 
+function extractMongooseErrors(err) {
+  if (err instanceof mongoose.Error.ValidationError) {
+    // Handle validation errors
+    for (let field in err.errors) {
+      if (err.errors.hasOwnProperty(field)) {
+        return `The ${field} field is invalid: ${err.errors[field].message}`;
+
+      }
+    }
+  }
+
+  if (err instanceof mongoose.Error.CastError) {
+    // Handle cast errors
+    return `The provided value for ${err.path} is not valid. Please provide a valid ${err.kind}.`;
+  }
+
+  if (err.name === "MongoServerError") {
+    if (err.code === 11000) {
+      // Handle duplicate key error
+      return `The value you provided for ${
+          Object.keys(err.keyValue)[0]
+        } already exists. Please provide a unique value.`;
+    }
+
+    // Handle other MongoDB errors
+    return "There was a problem with the database. Please try again later.";
+  }
+}
+
+function getPaginationQuery(page, limit){
+  return {
+    page: parseInt(page, 10) || 1,
+    limit: parseInt(limit, 10) || 10
+  }
+}
+
 module.exports = {
   slugify,
   getDeepValue,
@@ -147,5 +185,6 @@ module.exports = {
   hrTime,
   match,
   isChance,
-
+  extractMongooseErrors,
+  getPaginationQuery
 }

@@ -26,7 +26,18 @@ module.exports = class ValidatorsLoader {
             validators[sk] = {};
             Object.keys(schemes[sk]).forEach(s=>{
                 validators[sk][s] =  async (data)=>{
-                    return (await pine.validate(data, schemes[sk][s]));
+                    const result = await pine.validate(data, schemes[sk][s])
+
+                    if (typeof result != "boolean") {
+                        result.forEach(item => {
+                            // console.log(item)
+                            if (item.log == "_custom") {
+                                item.message = `${item.label} is invalid`;
+                            }
+                        })
+                    }
+
+                    return result;
                 }
                 /** also exports the trimmer function for the same */
                 validators[sk][`${s}Trimmer`] = async (data)=>{
