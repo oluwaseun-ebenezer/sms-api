@@ -948,6 +948,8 @@ Middlewares were created to authorize requests
 
 Here is the database schema design derived from your Mongoose models for a school management system:
 
+![Database Schema](public/schema.png)
+
 ---
 
 ### 1. **User**
@@ -1092,6 +1094,21 @@ app.use(morgan("combined")); // Logs detailed request information
 
 ---
 
+## Postman Collection
+
+This repository includes a Postman collection for testing the API endpoints.
+
+### How to Use the Postman Collection
+
+1. Download the collection file: [Postman Collection](public/school-management-collection.json).
+2. Import the collection into Postman:
+   - Open Postman.
+   - Click on **Import** at the top.
+   - Select the downloaded JSON file.
+3. Start testing the API endpoints.
+
+---
+
 ## Deployment
 
 This guide provides step-by-step instructions to deploy the School Management System backend REST API to **Render**.
@@ -1179,10 +1196,10 @@ A 200 response status code indicates a successful deployment
 
 1. Using **curl**:
    ```bash
-   curl -X HEAD {{HOST}}/api/user/health
+   curl -X HEAD {{HOST}}/api/seed/health
    ```
 2. Using **Postman**:
 
-   - `HEAD`: `{{HOST}}/api/user/health`
+   - `HEAD`: `{{HOST}}/api/seed/health`
 
 3. To use other endpoints, seed an initial admin as documented at the beginning of this documentation

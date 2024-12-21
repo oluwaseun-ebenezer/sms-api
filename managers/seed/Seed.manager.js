@@ -6,7 +6,7 @@ module.exports = class SeedManager {
     this.utils = utils;
     this.validators = validators;
 
-    this.httpExposed = ["createDefaultSuperAdmin"];
+    this.httpExposed = ["createDefaultSuperAdmin", "head=health"];
   }
 
   // Create default super admin - where all operation starts from
@@ -48,5 +48,9 @@ module.exports = class SeedManager {
           "Error seeding default super admin",
       };
     }
+  }
+
+  async health({}) {
+    return;
   }
 };
